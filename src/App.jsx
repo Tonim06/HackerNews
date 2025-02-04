@@ -1,35 +1,43 @@
 import { useState, useEffect } from "react";
 
-const TOP_STORIES_URL = "https://hacker-news.firebaseio.com/v0/topstories.json";
+const API_BASE = "https://hacker-news.firebaseio.com/v0";
+const ENDPOINTS = {
+  top: `${API_BASE}/topstories.json`,
+  best: `${API_BASE}/beststories.json`,
+  new: `${API_BASE}/newstories.json`,
+};
 
 function App() {
-  const [storyIds, setStoryIds] = useState([]); // Guarda las 500 historias
+  const [storyType, setStoryType] = useState("top"); // Tipo de historia seleccionada
+  const [storyIds, setStoryIds] = useState([]); // Guarda las historias disponibles
   const [stories, setStories] = useState([]); // Guarda las historias mostradas
-  const [visibleCount, setVisibleCount] = useState(10); // Controla cuántas historias se muestran
+  const [visibleCount, setVisibleCount] = useState(10); // Controla cuántas historias mostramos
 
-  // 🟢 Cargar las 500 stories al iniciar
+  // 🔄 Cargar historias cuando cambia el tipo de selección
   useEffect(() => {
-    fetch(TOP_STORIES_URL)
+    fetch(ENDPOINTS[storyType])
       .then((res) => res.json())
       .then((ids) => {
         setStoryIds(ids);
-        loadStories(ids.slice(0, 10)); // Carga las primeras 10 historias
+        setStories([]); // Reiniciar historias al cambiar la selección
+        setVisibleCount(10);
+        loadStories(ids.slice(0, 10)); // Cargar las primeras 10 historias
       })
       .catch((error) => console.error("Error carregant les històries:", error));
-  }, []);
+  }, [storyType]);
 
-  // 🔄 Función para cargar historias desde sus IDs
+  // 📌 Función para cargar historias a partir de un array de IDs
   const loadStories = async (ids) => {
     const storyPromises = ids.map(async (id) => {
-      const res = await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`);
+      const res = await fetch(`${API_BASE}/item/${id}.json`);
       return res.json();
     });
 
     const newStories = await Promise.all(storyPromises);
-    setStories((prevStories) => [...prevStories, ...newStories]); // Agregar nuevas historias
+    setStories((prevStories) => [...prevStories, ...newStories]);
   };
 
-  // 📌 Función para cargar 10 más
+  // 🟢 Cargar 10 más
   const loadMoreStories = () => {
     const nextStories = storyIds.slice(visibleCount, visibleCount + 10);
     loadStories(nextStories);
@@ -38,7 +46,20 @@ function App() {
 
   return (
     <div style={{ maxWidth: "800px", margin: "auto", padding: "20px" }}>
-      <h1>Hacker News - Top Stories</h1>
+      <h1>Hacker News - Stories</h1>
+
+      {/* 🔘 Selector de tipo de historia */}
+      <label htmlFor="storyType">Selecciona tipus d'històries: </label>
+      <select
+        id="storyType"
+        value={storyType}
+        onChange={(e) => setStoryType(e.target.value)}
+      >
+        <option value="top">Top Stories</option>
+        <option value="best">Best Stories</option>
+        <option value="new">New Stories</option>
+      </select>
+
       <ul>
         {stories.map((story) => (
           <li key={story.id} style={{ borderBottom: "1px solid #ccc", padding: "10px" }}>
@@ -57,7 +78,7 @@ function App() {
             <p>
               Comentaris:{" "}
               <a href={`https://news.ycombinator.com/item?id=${story.id}`} target="_blank">
-                {story.descendants}
+                {story.descendants || 0}
               </a>
             </p>
           </li>

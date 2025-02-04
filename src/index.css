@@ -1,31 +1,84 @@
+/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
+    background-color: #141414;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor principal */
+.container {
     max-width: 800px;
-    margin: auto;
+    background: #000;
     padding: 20px;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    border-radius: 8px;
+    margin: 20px;
 }
 
 h1 {
     text-align: center;
+    color: #e50914;
 }
 
+/* Selector de tipo de historia */
+select {
+    display: block;
+    margin: 10px auto;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #e50914;
+    background-color: #000;
+    color: white;
+}
+
+/* Lista de historias */
 ul {
     list-style: none;
     padding: 0;
 }
 
 li {
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border-bottom: 1px solid #e50914;
+    padding: 15px 0;
 }
 
-a {
+li h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #e50914;
+}
+
+li a {
     text-decoration: none;
-    color: blue;
+    color: #e50914;
 }
 
-a:hover {
-    text-decoration: underline;
+li p {
+    margin: 5px 0;
+    color: #bbb;
+    font-size: 14px;
+}
+
+/* Botón de cargar más */
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #e50914;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #b20710;
 }
