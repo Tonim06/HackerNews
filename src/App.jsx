@@ -96,7 +96,7 @@ function App() {
       {/* Botón para cargar más historias */}
       {visibleCount < 500 && (
         <button onClick={loadMoreStories} style={{ padding: "10px", fontSize: "16px" }}>
-          Load more
+          LOAD MORE
         </button>
       )}
     </div>

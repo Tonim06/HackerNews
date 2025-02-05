@@ -23,6 +23,7 @@ body {
 h1 {
     text-align: center;
     color: #90f6d7;
+    text-shadow: #90f6d7 1px 0 10px;
 }
 
 /* Selector de tipo de historia */
@@ -44,19 +45,18 @@ ul {
 }
 
 
-
 .story-item {
-    border: 1px solid #ccc;
+    border: 1px solid #bdebe0;
     border-radius: 5px;
     margin-bottom: 10px;
     padding: 10px;
   }
+
   
 
 li h2 {
     margin: 0;
     font-size: 18px;
-    color: #e50914;
 }
 
 li a {
@@ -82,6 +82,7 @@ button {
     border-radius: 4px;
     cursor: pointer;
     margin-top: 10px;
+    font-weight: bolder;
 }
 
 button:hover {
