@@ -46,7 +46,7 @@ function App() {
   };
 
   return (
-    <div style={{ maxWidth: "800px", margin: "auto", padding: "20px" }}>
+    <div style={{ padding: "20px" }}>
       <h1>Hacker News - Stories</h1>
 
       {/* Selector de tipo de historia */}
@@ -95,7 +95,7 @@ function App() {
 
       {/* Botón para cargar más historias */}
       {visibleCount < 500 && (
-        <button onClick={loadMoreStories} style={{ padding: "10px", fontSize: "16px" }}>
+        <button onClick={loadMoreStories} >
           LOAD MORE
         </button>
       )}
